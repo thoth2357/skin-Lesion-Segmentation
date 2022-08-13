@@ -6,6 +6,9 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 class Dataset_Processing():
+    """
+    class to help with method to help us read,parse,convert and split the dataset for processing later
+    """
     def __init__(self, dataset_folder_path:str) -> None:
         self.DATASET_FOLDER_PATH = dataset_folder_path
 
@@ -34,6 +37,9 @@ class Dataset_Processing():
         return self.X_train, self.X_test, self.Y_train, self.Y_test
 
 class Plotting():
+    """
+    class to help with methods to help plot our dataset images and evaluation metrics
+    """
     def __init__(self, figsize=(20,10)) -> None:
         self.FIGSIZE = figsize
     
@@ -51,5 +57,11 @@ class Plotting():
             plt.axis('off')
         plt.show()
     
-
+class Image_Processing():
+    '''
+    class to help with method for processing our image by either augmenting,enhancing or doing any other processing
+    '''
+    def __init__(self) -> None:
+        pass
+    
 
