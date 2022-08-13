@@ -43,6 +43,7 @@ class Plotting():
         """
         if cmap is None:
             cmap = ''
+        plt.figure(figsize=self.FIGSIZE)
         for i in range(no_of_images):
             plt.subplot(2, no_of_images, i+1)
             plt.imshow(dataset[i], cmap=cmap)
@@ -50,4 +51,5 @@ class Plotting():
             plt.axis('off')
         plt.show()
     
+
 
