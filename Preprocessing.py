@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
-class Preprocessing():
+class Dataset_Processing():
     def __init__(self, dataset_folder_path:str) -> None:
         self.DATASET_FOLDER_PATH = dataset_folder_path
 
@@ -46,9 +46,8 @@ class Plotting():
         for i in range(no_of_images):
             plt.subplot(2, no_of_images, i+1)
             plt.imshow(dataset[i], cmap=cmap)
-            plt.title(title)
+            # plt.title(title)
             plt.axis('off')
         plt.show()
-    
     
 
