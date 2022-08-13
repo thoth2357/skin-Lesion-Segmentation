@@ -4,7 +4,7 @@ import glob
 import numpy as np
 from PIL import Image
 from sklearn.model_selection import train_test_split
-
+from matplotlib import pyplot as plt
 class Preprocessing():
     def __init__(self, dataset_folder_path:str) -> None:
         self.DATASET_FOLDER_PATH = dataset_folder_path
@@ -32,3 +32,23 @@ class Preprocessing():
         """
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(X_train, Y_train, test_size=test_size)
         return self.X_train, self.X_test, self.Y_train, self.Y_test
+
+class Plotting():
+    def __init__(self, figsize=(20,10)) -> None:
+        self.FIGSIZE = figsize
+    
+    def plot_images(self, dataset, no_of_images=None,cmap=None, title="plot") -> None:
+        """
+        plots random images based on image number and type
+        """
+        if cmap is None:
+            cmap = ''
+        for i in range(no_of_images):
+            plt.subplot(2, no_of_images, i+1)
+            plt.imshow(dataset[i], cmap=cmap)
+            plt.title(title)
+            plt.axis('off')
+        plt.show()
+    
+    
+
