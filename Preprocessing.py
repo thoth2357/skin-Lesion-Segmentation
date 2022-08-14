@@ -2,6 +2,7 @@
 import os
 import glob
 import numpy as np
+import cv2
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
@@ -64,4 +65,10 @@ class Image_Processing():
     def __init__(self) -> None:
         pass
     
-
+    def horizontal_flip(self, x_image, y_image) -> np.ndarray:
+        """
+        horizontal flip the provided image
+        """
+        x_image = cv2.flip(x_image, 1)
+        y_image = cv2.flip(y_image.astype('float32'), 1)
+        return x_image, y_image.astype('int')
