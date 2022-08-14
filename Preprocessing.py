@@ -54,9 +54,10 @@ class Plotting():
         for i in range(no_of_images):
             plt.subplot(2, no_of_images, i+1)
             plt.imshow(dataset[i], cmap=cmap)
-            # plt.title(title)
+            plt.title(title)
             plt.axis('off')
         plt.show()
+    
     
 class Image_Processing():
     '''
@@ -138,3 +139,35 @@ class Image_Processing():
         x_image = x_image + np.random.normal(0, 0.1, x_image.shape)
         y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
         return x_image, y_image.astype('int')
+    def augment_image(self,x_train,y_train) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+        """
+        augment the image with random augmentation
+        """
+        x_rotate,y_rotate,x_random_noise,y_random_noise,x_flip_h,y_flip_h,x_flip_v,y_flip_v,x_translate,y_translate,x_zoom,y_zoom,x_shear,y_shear,x_brightness,y_brightness = []
+        for idx,image in enumerate(x_train):
+            x_image, y_image = self.random_rotation(x_train[idx],y_train[idx])
+            x_rotate.append(x_image)
+            y_rotate.append(y_image)
+            x_image, y_image = self.horizontal_flip(x_train[idx],y_train[idx])
+            x_flip_h.append(x_image)
+            y_flip_h.append(y_image)
+            x_image, y_image = self.vertical_flip(x_train[idx],y_train[idx])
+            x_flip_v.append(x_image)
+            y_flip_v.append(y_image)
+            x_image, y_image = self.random_noise(x_train[idx],y_train[idx])
+            x_random_noise.append(x_image)
+            y_random_noise.append(y_image)
+            x_image, y_image = self.random_translation(x_train[idx],y_train[idx])
+            x_translate.append(x_image)
+            y_translate.append(y_image)
+            x_image, y_image = self.random_zoom(x_train[idx],y_train[idx])
+            x_zoom.append(x_image)
+            y_zoom.append(y_image)
+            x_image, y_image = self.random_shear(x_train[idx],y_train[idx])
+            x_shear.append(x_image)
+            y_shear.append(y_image)
+            x_image, y_image = self.random_brightness(x_train[idx],y_train[idx])
+            x_brightness.append(x_image)
+            y_brightness.append(y_image)
+        return np.array(x_rotate),np.array(y_rotate),np.array(x_random_noise),np.array(y_random_noise),np.array(x_flip_h),np.array(y_flip_h),np.array(x_flip_v),np.array(y_flip_v),np.array(x_translate),np.array(y_translate),np.array(x_zoom),np.array(y_zoom),np.array(x_shear),np.array(y_shear),np.array(x_brightness),np.array(y_brightness)
+    
