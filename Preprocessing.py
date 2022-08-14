@@ -65,10 +65,76 @@ class Image_Processing():
     def __init__(self) -> None:
         pass
     
-    def horizontal_flip(self, x_image, y_image) -> np.ndarray:
+    def horizontal_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):
         """
         horizontal flip the provided image
         """
         x_image = cv2.flip(x_image, 1)
         y_image = cv2.flip(y_image.astype('float32'), 1)
+        return x_image, y_image.astype('int')
+    
+    def random_rotation(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random rotation of the image
+        """
+        rows, cols = x_image.shape[:2]
+        rotation_angle = np.random.uniform(-10, 10)
+        M = cv2.getRotationMatrix2D((cols/2, rows/2), rotation_angle, 1)
+        x_image = cv2.warpAffine(x_image, M, (cols, rows))
+        y_image = cv2.warpAffine(y_image.astype('float32'), M, (cols, rows))
+        return x_image, y_image.astype('int')
+    def random_noise(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random noise of the image
+        """
+        x_image = x_image + np.random.normal(0, 0.1, x_image.shape)
+        y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
+        return x_image, y_image.astype('int')
+    def vertical_flip(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        vertical flip the provided image
+        """
+        x_image = cv2.flip(x_image, 0)
+        y_image = cv2.flip(y_image.astype('float32'), 0)
+        return x_image, y_image.astype('int')
+    def random_translation(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random translation of the image
+        """
+        rows, cols = x_image.shape[:2]
+        translation_x = np.random.uniform(-10, 10)
+        translation_y = np.random.uniform(-10, 10)
+        M = np.float32([[1, 0, translation_x], [0, 1, translation_y]])
+        x_image = cv2.warpAffine(x_image, M, (cols, rows))
+        y_image = cv2.warpAffine(y_image.astype('float32'), M, (cols, rows))
+        return x_image, y_image.astype('int')
+    def random_zoom(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random zoom of the image
+        """
+        rows, cols = x_image.shape[:2]
+        zoom_x = np.random.uniform(0.9, 1.1)
+        zoom_y = np.random.uniform(0.9, 1.1)
+        M = np.float32([[zoom_x, 0, 0], [0, zoom_y, 0]])
+        x_image = cv2.warpAffine(x_image, M, (cols, rows))
+        y_image = cv2.warpAffine(y_image.astype('float32'), M, (cols, rows))
+        return x_image, y_image.astype('int')
+    def random_shear(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random shear of the image
+        """
+        rows, cols = x_image.shape[:2]
+        shear_x = np.random.uniform(-10, 10)
+        shear_y = np.random.uniform(-10, 10)
+        M = np.float32([[1, shear_x, 0], [shear_y, 1, 0]])
+        x_image = cv2.warpAffine(x_image, M, (cols, rows))
+        y_image = cv2.warpAffine(y_image.astype('float32'), M, (cols, rows))
+        return x_image, y_image.astype('int')
+    
+    def random_brightness(self,x_image,y_image) -> tuple(np.ndarray, np.int):
+        """
+        random brightness of the image
+        """
+        x_image = x_image + np.random.normal(0, 0.1, x_image.shape)
+        y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
         return x_image, y_image.astype('int')
