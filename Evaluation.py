@@ -1,4 +1,6 @@
 import numpy as np
+from keras import backend as K
+
 class Evaluation():
     'class for providing us with methods to evaluate our segmentation'
     def __init__(self) -> None:
@@ -38,3 +40,25 @@ class Evaluation():
         Calculates the mean IU between two images.
         """
         ground_truth = ground_truth.flatten()
+    def precision(self,ground_truth, prediction) -> float:
+        ''' Calculates the precision, a metric for multi-label classification of
+            how many selected items are relevant.
+        '''
+        true_positives = K.sum(K.round(K.clip(ground_truth * prediction, 0, 1)))
+        predicted_positives = K.sum(K.round(K.clip(prediction, 0, 1)))
+        precision = true_positives / (predicted_positives + K.epsilon())
+        return precision
+    def recall(self,ground_truth, prediction) -> float:
+        ''' Calculates the recall, a metric for multi-label classification of
+            how many relevant items are selected.
+        '''
+        true_positives = K.sum(K.round(K.clip(ground_truth * prediction, 0, 1)))
+        possible_positives = K.sum(K.round(K.clip(ground_truth, 0, 1)))
+        recall = true_positives / (possible_positives + K.epsilon())
+        return recall
+    def accuracy(self,ground_truth,prediction) -> float:
+        """
+        Calculates the mean accurcy rate across all predictions for binary classification problems.
+        """
+        return K.mean(K.equal(ground_truth, K.round(prediction)))
+    
