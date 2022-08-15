@@ -36,6 +36,12 @@ class Dataset_Processing():
         """
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(X_train, Y_train, test_size=test_size)
         return self.X_train, self.X_test, self.Y_train, self.Y_test
+    def train_test_split_validation(self, X_train, Y_train, test_size, random_state) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+        """
+       splits the dataset provided for us to get our validation set 
+        """
+        x_train, x_val, y_train, y_val = train_test_split(X_train, Y_train, test_size = test_size, random_state = random_state)
+        return x_train, x_val, y_train, y_val
 
 class Plotting():
     """
