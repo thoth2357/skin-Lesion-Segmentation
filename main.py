@@ -18,5 +18,12 @@ def Main():
 
     #splitting the dataset into train and test set
     x_train, x_test, y_train, y_test = dataset_processing.train_test_split_image(X_train, Y_train, test_size=0.2)
+
+    #plotting origial images
+    plotting = Plotting()
+    plotting.plot_images(X_train, no_of_images=8, cmap='None', title=None)
+    
+    #plotting ground truth images 
+    plotting.plot_images(Y_train, no_of_images=8, cmap='gray', title=None)  
 if __name__ == '__main__':
     Main()

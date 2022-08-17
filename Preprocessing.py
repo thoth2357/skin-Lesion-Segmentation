@@ -50,7 +50,7 @@ class Plotting():
     def __init__(self, figsize=(20,10)) -> None:
         self.FIGSIZE = figsize
     
-    def plot_images(self, dataset, no_of_images=None,cmap=None, title="plot") -> None:
+    def plot_images(self, dataset, no_of_images=None,cmap=None, title=None) -> None:
         """
         plots random images based on image number and type
         """
@@ -58,9 +58,10 @@ class Plotting():
             cmap = ''
         plt.figure(figsize=self.FIGSIZE)
         for i in range(no_of_images):
-            plt.subplot(2, no_of_images, i+1)
+            plt.subplot(2, no_of_images/2, i+1)
             plt.imshow(dataset[i], cmap=cmap)
-            plt.title(title)
+            if title != None:
+                plt.title(title)
             plt.axis('off')
         plt.show()
     
