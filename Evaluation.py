@@ -44,7 +44,7 @@ class Evaluation:
         prediction = prediction.flatten()
         return np.sum(ground_truth == prediction) / len(ground_truth)
 
-    def mean_IU(self, ground_truth, prediction) -> float:
+    def mean_IU(self, ground_truth, prediction) -> float:  # type: ignore
         """
         Calculates the mean IU between two images.
         """

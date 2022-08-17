@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from Preprocessing import Dataset_Processing, Plotting, Image_Processing
 from Model import Fcn_Network
 from Evaluation import Evaluation
-
+import numpy as np
 
 def Main():
     """
@@ -71,8 +71,50 @@ def Main():
         x_brightened_test,
         y_brightened_test,
     ) = image_processing.augment_images(x_test, y_test)
-    
-    # plotting augmented images
+
+    # plotting augmented images with their original images
+    plotting.plot_augmented_images(
+        x_rotated,
+        y_rotated,
+        x_random_noise,
+        y_random_noise,
+        x_flipped_h,
+        y_flipped_h,
+        x_flipped_v,
+        y_flipped_v,
+        x_translated,
+        y_translated,
+        x_zoomed,
+        y_zoomed,
+        x_sheared,
+        y_sheared,
+        x_brightened,
+        y_brightened,
+        image_number=40,
+    )
+
+    # joining all the transformations image arrays to the original training arrays for training set
+    x_train_full = np.concatenate(
+        [
+            x_train,
+            x_rotated,
+            y_rotated,
+            x_random_noise,
+            y_random_noise,
+            x_flipped_h,
+            y_flipped_h,
+            x_flipped_v,
+            y_flipped_v,
+            x_translated,
+            y_translated,
+            x_zoomed,
+            y_zoomed,
+            x_sheared,
+            y_sheared,
+            x_brightened,
+            y_brightened,
+        ]
+    )
     
 
 if __name__ == "__main__":

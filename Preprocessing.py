@@ -16,7 +16,7 @@ class Dataset_Processing:
     def __init__(self, dataset_folder_path: str) -> None:
         self.DATASET_FOLDER_PATH = dataset_folder_path
 
-    def load_dataset(self) -> tuple(list[str], list[str]):
+    def load_dataset(self) -> tuple(list[str], list[str]):  # type: ignore
         """
         Loads the dataset from the given path in a sorted manner.
         """
@@ -32,7 +32,7 @@ class Dataset_Processing:
 
     def convert_images_to_array(
         self, files_orig_image, files_ground_truth
-    ) -> tuple(np.ndarray, np.ndarray):
+    ) -> tuple(np.ndarray, np.ndarray):  # type: ignore
         """
         Converts the images to arrays.
         """
@@ -46,7 +46,7 @@ class Dataset_Processing:
 
     def train_test_split_image(
         self, X_train, Y_train, test_size
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
         """
         Splits the dataset into train and test set.
         """
@@ -57,7 +57,7 @@ class Dataset_Processing:
 
     def train_test_split_validation(
         self, X_train, Y_train, test_size, random_state
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
         """
        splits the dataset provided for us to get our validation set 
         """
@@ -82,7 +82,7 @@ class Plotting:
         if cmap is None:
             cmap = ""
         plt.figure(figsize=self.FIGSIZE)
-        for i in range(no_of_images):
+        for i in range(no_of_images):  # type: ignore
             plt.subplot(2, no_of_images / 2, i + 1)
             plt.imshow(dataset[i], cmap=cmap)
             if title != None:
@@ -99,7 +99,7 @@ class Plotting:
         for no, image in enumerate(args):
             plt.subplot(3, 2, no + 1)
             if image.split("_")[0] == "y":
-                plt.imshow(image[image_number], cmap=plt.cm.binary_r)
+                plt.imshow(image[image_number], cmap=plt.cm.binary_r)  # type: ignore # type: ignore
                 plt.title(f"{image.split('_')[1]} Mask")
             else:
                 plt.imshow(image[image_number])
@@ -114,7 +114,7 @@ class Image_Processing:
     def __init__(self, x_train, y_train) -> None:
         pass
 
-    def horizontal_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def horizontal_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore # type: ignore
         """
         horizontal flip the provided image
         """
@@ -122,7 +122,7 @@ class Image_Processing:
         y_image = cv2.flip(y_image.astype("float32"), 1)
         return x_image, y_image.astype("int")
 
-    def random_rotation(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_rotation(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random rotation of the image
         """
@@ -133,7 +133,7 @@ class Image_Processing:
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_noise(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_noise(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random noise of the image
         """
@@ -141,7 +141,7 @@ class Image_Processing:
         y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
         return x_image, y_image.astype("int")
 
-    def vertical_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def vertical_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         vertical flip the provided image
         """
@@ -149,43 +149,43 @@ class Image_Processing:
         y_image = cv2.flip(y_image.astype("float32"), 0)
         return x_image, y_image.astype("int")
 
-    def random_translation(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_translation(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random translation of the image
         """
         rows, cols = x_image.shape[:2]
         translation_x = np.random.uniform(-10, 10)
         translation_y = np.random.uniform(-10, 10)
-        M = np.float32([[1, 0, translation_x], [0, 1, translation_y]])
+        M = np.float32([[1, 0, translation_x], [0, 1, translation_y]])  # type: ignore
         x_image = cv2.warpAffine(x_image, M, (cols, rows))
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_zoom(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_zoom(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random zoom of the image
         """
         rows, cols = x_image.shape[:2]
         zoom_x = np.random.uniform(0.9, 1.1)
         zoom_y = np.random.uniform(0.9, 1.1)
-        M = np.float32([[zoom_x, 0, 0], [0, zoom_y, 0]])
+        M = np.float32([[zoom_x, 0, 0], [0, zoom_y, 0]])  # type: ignore # type: ignore
         x_image = cv2.warpAffine(x_image, M, (cols, rows))
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_shear(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_shear(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random shear of the image
         """
         rows, cols = x_image.shape[:2]
         shear_x = np.random.uniform(-10, 10)
         shear_y = np.random.uniform(-10, 10)
-        M = np.float32([[1, shear_x, 0], [shear_y, 1, 0]])
+        M = np.float32([[1, shear_x, 0], [shear_y, 1, 0]])  # type: ignore
         x_image = cv2.warpAffine(x_image, M, (cols, rows))
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_brightness(self, x_image, y_image) -> tuple(np.ndarray, np.int):
+    def random_brightness(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
         """
         random brightness of the image
         """
@@ -195,7 +195,7 @@ class Image_Processing:
 
     def augment_image(
         self, x_train, y_train
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
         """
         augment the image with random augmentation
         """
