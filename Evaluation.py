@@ -19,7 +19,7 @@ class Evaluation:
             np.sum(ground_truth) + np.sum(prediction) + 1
         )
 
-    def jaccard_index(self, ground_truth, prediction) -> float:
+    def jaccard_distance(self, ground_truth, prediction) -> float:
         """
         Calculates the jaccard index between two images.
         """
