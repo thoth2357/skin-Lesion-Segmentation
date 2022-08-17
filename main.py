@@ -53,7 +53,27 @@ def Main():
         x_brightened,
         y_brightened,
     ) = image_processing.augment_images(x_train, y_train)
-
+    (
+        x_rotated_test,
+        y_rotated_test,
+        x_random_noise_test,
+        y_random_noise_test,
+        x_flipped_h_test,
+        y_flipped_h_test,
+        x_flipped_v_test,
+        y_flipped_v_test,
+        x_translated_test,
+        y_translated_test,
+        x_zoomed_test,
+        y_zoomed_test,
+        x_sheared_test,
+        y_sheared_test,
+        x_brightened_test,
+        y_brightened_test,
+    ) = image_processing.augment_images(x_test, y_test)
+    
+    # plotting augmented images
+    
 
 if __name__ == "__main__":
     Main()
