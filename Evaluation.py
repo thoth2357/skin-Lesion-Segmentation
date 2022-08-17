@@ -21,7 +21,7 @@ class Evaluation:
 
     def jaccard_distance(self, ground_truth, prediction) -> float:
         """
-        Calculates the jaccard index between two images.
+        Calculates the jaccard distance between two images.
         """
         ground_truth = ground_truth.flatten()
         prediction = prediction.flatten()
