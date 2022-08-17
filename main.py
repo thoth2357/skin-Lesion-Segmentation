@@ -131,5 +131,12 @@ def Main():
     #check descriptives of training,testing and validation sets
     dataset_processing.descriptives(x_train, x_test, x_val)
 
+    # defining loss and metrics to use for model training
+    loss = [Evaluation.jaccard_distance]
+    metrics = [Evaluation.dice_coefficient,Evaluation.precision,Evaluation.recall,Evaluation.accuracy]
+    
+    # running model network on the training set
+    model_network = Fcn_Network(epochs=100, model_save_name="fcn_100_epochs_weights.h5",lr=0.003)
+    model,hist = model_network.train_model(x_train, y_train, x_val, y_val, loss=loss, metrics=metrics)
 if __name__ == "__main__":
     Main()
