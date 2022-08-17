@@ -95,15 +95,16 @@ class Plotting:
         plots the augmented images
         """
         image_number = kwargs.get("image_number")
-        plt.figure(figsize=(12,12))
+        plt.figure(figsize=(12, 12))
         for no, image in enumerate(args):
             plt.subplot(3, 2, no + 1)
-            if image.split("_")[0] == 'y':
-                plt.imshow(image, cmap=plt.cm.binary_r)
+            if image.split("_")[0] == "y":
+                plt.imshow(image[image_number], cmap=plt.cm.binary_r)
                 plt.title(f"{image.split('_')[1]} Mask")
             else:
                 plt.imshow(image[image_number])
                 plt.title(f"{image.split('_')[1]} Image")
+
 
 class Image_Processing:
     """
