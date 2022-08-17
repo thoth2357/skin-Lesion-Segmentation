@@ -27,7 +27,7 @@ class Fcn_Network:
         self.SAVE_NAME = model_save_name
         self.LR = lr
 
-    def model_init(
+    def train_model(
         self, x_train, y_train, x_val, y_val, loss: List, metrics: List
     ) -> tuple(keras.models.Model, keras.models.Model):  # type: ignore
         # Convolution Layers (BatchNorm after non-linear activation)
