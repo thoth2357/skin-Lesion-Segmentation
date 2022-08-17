@@ -16,13 +16,13 @@ class Dataset_Processing:
     def __init__(self, dataset_folder_path: str) -> None:
         self.DATASET_FOLDER_PATH = dataset_folder_path
 
-    def load_dataset(self) -> tuple(list[str], list[str]):  # type: ignore
+    def load_dataset(self):  # type: ignore
         """
         Loads the dataset from the given path in a sorted manner.
         """
         files_orig_image = sorted(
             filter(
-                os.path.isfile, glob.glob(self.DATASET_FOLDER_PATH + "/org data/*.png")
+                os.path.isfile, glob.glob(self.DATASET_FOLDER_PATH + "/org data/*.jpg")
             )
         )
         files_ground_truth = sorted(
@@ -32,24 +32,27 @@ class Dataset_Processing:
 
     def convert_images_to_array(
         self, files_orig_image, files_ground_truth
-    ) -> tuple(np.ndarray, np.ndarray):  # type: ignore
+    ):  # type: ignore
         """
         Converts the images to arrays.
         """
         self.X_train = np.array(
-            [np.array(Image.open(fname)) for fname in files_orig_image]
+            [np.array(Image.open(fname)) for fname in files_orig_image],
+            dtype=object,
         )
         self.Y_train = np.array(
-            [np.array(Image.open(fname)) for fname in files_ground_truth]
+            [np.array(Image.open(fname)) for fname in files_ground_truth],
+            dtype=object,
         )
         return self.X_train, self.Y_train
 
     def train_test_split_image(
         self, X_train, Y_train, test_size, *args
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
+    ):  # type: ignore
         """
         Splits the dataset into train and test set.
         """
+        
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(
             X_train, Y_train, test_size=test_size
         )
@@ -57,7 +60,7 @@ class Dataset_Processing:
 
     def train_test_split_validation(
         self, X_train, Y_train, test_size, random_state
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
+    ):  # type: ignore
         """
        splits the dataset provided for us to get our validation set 
         """
@@ -77,8 +80,6 @@ class Dataset_Processing:
             print("----"*10)
             print("Shape of Training Set:", arg.shape)
             print("Shape of Test Set:", arg.shape)
-            print("Shape of Validation Set:", arg.shape)
-            print("----"*10)
 class Plotting:
     """
     class to help with methods to help plot our dataset images and evaluation metrics
@@ -126,7 +127,7 @@ class Image_Processing:
     def __init__(self, x_train, y_train) -> None:
         pass
 
-    def horizontal_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore # type: ignore
+    def horizontal_flip(self, x_image, y_image):  # type: ignore # type: ignore
         """
         horizontal flip the provided image
         """
@@ -134,7 +135,7 @@ class Image_Processing:
         y_image = cv2.flip(y_image.astype("float32"), 1)
         return x_image, y_image.astype("int")
 
-    def random_rotation(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_rotation(self, x_image, y_image):  # type: ignore
         """
         random rotation of the image
         """
@@ -145,7 +146,7 @@ class Image_Processing:
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_noise(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_noise(self, x_image, y_image):  # type: ignore
         """
         random noise of the image
         """
@@ -153,7 +154,7 @@ class Image_Processing:
         y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
         return x_image, y_image.astype("int")
 
-    def vertical_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def vertical_flip(self, x_image, y_image):  # type: ignore
         """
         vertical flip the provided image
         """
@@ -161,7 +162,7 @@ class Image_Processing:
         y_image = cv2.flip(y_image.astype("float32"), 0)
         return x_image, y_image.astype("int")
 
-    def random_translation(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_translation(self, x_image, y_image):  # type: ignore
         """
         random translation of the image
         """
@@ -173,7 +174,7 @@ class Image_Processing:
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_zoom(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_zoom(self, x_image, y_image):  # type: ignore
         """
         random zoom of the image
         """
@@ -185,7 +186,7 @@ class Image_Processing:
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_shear(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_shear(self, x_image, y_image):  # type: ignore
         """
         random shear of the image
         """
@@ -197,7 +198,7 @@ class Image_Processing:
         y_image = cv2.warpAffine(y_image.astype("float32"), M, (cols, rows))
         return x_image, y_image.astype("int")
 
-    def random_brightness(self, x_image, y_image) -> tuple(np.ndarray, np.int):  # type: ignore
+    def random_brightness(self, x_image, y_image):  # type: ignore
         """
         random brightness of the image
         """
@@ -207,7 +208,7 @@ class Image_Processing:
 
     def augment_image(
         self, x_train, y_train
-    ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
+    ):  # type: ignore
         """
         augment the image with random augmentation
         """
