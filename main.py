@@ -5,6 +5,7 @@ from Model import Fcn_Network
 from Evaluation import Evaluation
 import numpy as np
 
+
 def Main():
     """
     Main function to start program
@@ -107,8 +108,8 @@ def Main():
             x_brightened,
         ]
     )
-    
-    x_test_full = np.concatenate(
+
+    y_train_full = np.concatenate(
         [
             y_train,
             y_rotated,
@@ -121,6 +122,14 @@ def Main():
             y_brightened,
         ]
     )
+
+    # making a validation set from the training set
+    x_train, x_val, y_train, y_val = dataset_processing.train_test_split_validation(
+        x_train_full, y_train_full, test_size=0.20, random_state=101
+    )
+
+    #check descriptives of training,testing and validation sets
+    dataset_processing.descriptives(x_train, x_test, x_val)
 
 if __name__ == "__main__":
     Main()
