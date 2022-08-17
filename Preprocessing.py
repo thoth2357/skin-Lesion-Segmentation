@@ -45,13 +45,13 @@ class Dataset_Processing:
         return self.X_train, self.Y_train
 
     def train_test_split_image(
-        self, X_train, Y_train, test_size
+        self, X_train, Y_train, test_size, *args
     ) -> tuple(np.ndarray, np.ndarray, np.ndarray, np.ndarray):  # type: ignore
         """
         Splits the dataset into train and test set.
         """
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(
-            X_train, Y_train, test_size=test_size
+            X_train, Y_train, test_size=test_size, random_state=args[0]
         )
         return self.X_train, self.X_test, self.Y_train, self.Y_test
 
