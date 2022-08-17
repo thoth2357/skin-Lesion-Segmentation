@@ -51,7 +51,7 @@ class Dataset_Processing:
         Splits the dataset into train and test set.
         """
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(
-            X_train, Y_train, test_size=test_size, random_state=args[0]
+            X_train, Y_train, test_size=test_size
         )
         return self.X_train, self.X_test, self.Y_train, self.Y_test
 
@@ -66,7 +66,19 @@ class Dataset_Processing:
         )
         return x_train, x_val, y_train, y_val
 
-
+    def descriptives(self, *args) -> None:
+        """
+        Prints the descriptives of the dataset.
+        """
+        for arg in args:
+            print("Length of Training Set:", len(arg))
+            print("Length of Test Set:", len(arg))
+            print("length of Validation Set:", len(arg))
+            print("----"*10)
+            print("Shape of Training Set:", arg.shape)
+            print("Shape of Test Set:", arg.shape)
+            print("Shape of Validation Set:", arg.shape)
+            print("----"*10)
 class Plotting:
     """
     class to help with methods to help plot our dataset images and evaluation metrics
