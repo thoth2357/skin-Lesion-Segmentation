@@ -10,6 +10,11 @@ def Main():
     #initializing the dataset processing class
     dataset_processing = Dataset_Processing(dataset_folder_path="dataset")
     
+    #loading the dataset
+    files_orig_image, files_ground_truth = dataset_processing.load_dataset()
+
+    #converting the images to arrays
+    X_train, Y_train = dataset_processing.convert_images_to_array(files_orig_image, files_ground_truth)
 
 if __name__ == '__main__':
     Main()
