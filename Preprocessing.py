@@ -70,7 +70,7 @@ class Image_Processing():
     '''
     class to help with method for processing our image by either augmenting,enhancing or doing any other processing
     '''
-    def __init__(self) -> None:
+    def __init__(self, x_train,y_train) -> None:
         pass
     
     def horizontal_flip(self, x_image, y_image) -> tuple(np.ndarray, np.int):
