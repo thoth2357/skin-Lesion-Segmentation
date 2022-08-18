@@ -29,7 +29,7 @@ class Fcn_Network:
 
     def train_model(
         self, x_train, y_train, x_val, y_val, loss: List, metrics: List
-    ) -> tuple(keras.models.Model, keras.models.Model):  # type: ignore
+    ):  # type: ignore
         # Convolution Layers (BatchNorm after non-linear activation)
 
         img_input = Input(shape=(192, 256, 3))

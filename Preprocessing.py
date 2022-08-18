@@ -37,12 +37,10 @@ class Dataset_Processing:
         Converts the images to arrays.
         """
         self.X_train = np.array(
-            [np.array(Image.open(fname)) for fname in files_orig_image],
-            dtype=object,
+            [np.array(Image.open(fname)) for fname in files_orig_image], dtype=object,
         )
         self.Y_train = np.array(
-            [np.array(Image.open(fname)) for fname in files_ground_truth],
-            dtype=object,
+            [np.array(Image.open(fname)) for fname in files_ground_truth], dtype=object,
         )
         return self.X_train, self.Y_train
 
@@ -52,7 +50,7 @@ class Dataset_Processing:
         """
         Splits the dataset into train and test set.
         """
-        
+
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(
             X_train, Y_train, test_size=test_size
         )
@@ -77,9 +75,11 @@ class Dataset_Processing:
             print("Length of Training Set:", len(arg))
             print("Length of Test Set:", len(arg))
             print("length of Validation Set:", len(arg))
-            print("----"*10)
+            print("----" * 10)
             print("Shape of Training Set:", arg.shape)
             print("Shape of Test Set:", arg.shape)
+
+
 class Plotting:
     """
     class to help with methods to help plot our dataset images and evaluation metrics
@@ -88,19 +88,21 @@ class Plotting:
     def __init__(self, figsize=(20, 10)) -> None:
         self.FIGSIZE = figsize
 
-    def plot_images(self, dataset, no_of_images=None, cmap=None, title=None) -> None:
+    def plot_images(self, dataset, no_of_images, cmap, title) -> None:
         """
         plots random images based on image number and type
         """
-        if cmap is None:
-            cmap = ""
         plt.figure(figsize=self.FIGSIZE)
+
         for i in range(no_of_images):  # type: ignore
             plt.subplot(2, no_of_images / 2, i + 1)
-            plt.imshow(dataset[i], cmap=cmap)
+            if cmap == "":
+                plt.imshow(dataset[i])
+            else:
+                plt.imshow(dataset[i], cmap=cmap)
             if title != None:
                 plt.title(title)
-            plt.axis("off")
+            # plt.axis("off")
         plt.show()
 
     def plot_augmented_images(self, *args, **kwargs) -> None:
@@ -206,30 +208,29 @@ class Image_Processing:
         y_image = y_image + np.random.normal(0, 0.1, y_image.shape)
         return x_image, y_image.astype("int")
 
-    def augment_image(
-        self, x_train, y_train
-    ):  # type: ignore
+    def augment_image(self, x_train, y_train):  # type: ignore
         """
         augment the image with random augmentation
         """
+
         (
             x_rotate,
             y_rotate,
-            x_random_noise,
-            y_random_noise,
+            # x_random_noise,
+            # y_random_noise,
             x_flip_h,
             y_flip_h,
             x_flip_v,
             y_flip_v,
-            x_translate,
-            y_translate,
+            # x_translate,
+            # y_translate,
             x_zoom,
             y_zoom,
-            x_shear,
-            y_shear,
+            # x_shear,
+            # y_shear,
             x_brightness,
             y_brightness,
-        ) = []
+        ) = ([], [], [], [], [], [], [], [], [], [])
         for idx, image in enumerate(x_train):
             x_image, y_image = self.random_rotation(x_train[idx], y_train[idx])
             x_rotate.append(x_image)
@@ -240,36 +241,36 @@ class Image_Processing:
             x_image, y_image = self.vertical_flip(x_train[idx], y_train[idx])
             x_flip_v.append(x_image)
             y_flip_v.append(y_image)
-            x_image, y_image = self.random_noise(x_train[idx], y_train[idx])
-            x_random_noise.append(x_image)
-            y_random_noise.append(y_image)
-            x_image, y_image = self.random_translation(x_train[idx], y_train[idx])
-            x_translate.append(x_image)
-            y_translate.append(y_image)
+            # x_image, y_image = self.random_noise(x_train[idx], y_train[idx])
+            # x_random_noise.append(x_image)
+            # y_random_noise.append(y_image)
+            # x_image, y_image = self.random_translation(x_train[idx], y_train[idx])
+            # x_translate.append(x_image)
+            # y_translate.append(y_image)
             x_image, y_image = self.random_zoom(x_train[idx], y_train[idx])
             x_zoom.append(x_image)
             y_zoom.append(y_image)
-            x_image, y_image = self.random_shear(x_train[idx], y_train[idx])
-            x_shear.append(x_image)
-            y_shear.append(y_image)
+            # x_image, y_image = self.random_shear(x_train[idx], y_train[idx])
+            # x_shear.append(x_image)
+            # y_shear.append(y_image)
             x_image, y_image = self.random_brightness(x_train[idx], y_train[idx])
             x_brightness.append(x_image)
             y_brightness.append(y_image)
         return (
             np.array(x_rotate),
             np.array(y_rotate),
-            np.array(x_random_noise),
-            np.array(y_random_noise),
+            # np.array(x_random_noise),
+            # np.array(y_random_noise),
             np.array(x_flip_h),
             np.array(y_flip_h),
             np.array(x_flip_v),
             np.array(y_flip_v),
-            np.array(x_translate),
-            np.array(y_translate),
+            # np.array(x_translate),
+            # np.array(y_translate),
             np.array(x_zoom),
             np.array(y_zoom),
-            np.array(x_shear),
-            np.array(y_shear),
+            # np.array(x_shear),
+            # np.array(y_shear),
             np.array(x_brightness),
             np.array(y_brightness),
         )
