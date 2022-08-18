@@ -1,4 +1,5 @@
 # importing modules
+import inspect
 import os
 import glob
 import numpy as np
@@ -78,6 +79,7 @@ class Dataset_Processing:
             print("----" * 10)
             print("Shape of Training Set:", arg.shape)
             print("Shape of Test Set:", arg.shape)
+            break
 
 
 class Plotting:
@@ -113,13 +115,15 @@ class Plotting:
         plt.figure(figsize=(12, 12))
         for no, image in enumerate(args):
             plt.subplot(3, 2, no + 1)
-            if image.split("_")[0] == "y":
+            callers_local_vars = inspect.currentframe().f_back.f_locals.items()
+            name = str([k for k, v in callers_local_vars if v is Image][0])+': '+str(image)
+            if name.split("_")[0] == "y":
                 plt.imshow(image[image_number], cmap=plt.cm.binary_r)  # type: ignore # type: ignore
                 plt.title(f"{image.split('_')[1]} Mask")
             else:
                 plt.imshow(image[image_number])
                 plt.title(f"{image.split('_')[1]} Image")
-
+        plt.show()
 
 class Image_Processing:
     """
