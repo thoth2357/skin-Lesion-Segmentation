@@ -1,10 +1,12 @@
 # importing modules
+import warnings
 from matplotlib import pyplot as plt
 from Preprocessing import Dataset_Processing, Plotting, Image_Processing
 from Model import Fcn_Network
 from Evaluation import Evaluation
 import numpy as np
 
+warnings.filterwarnings("ignore")
 
 def Main():
     """
@@ -85,22 +87,22 @@ def Main():
 
     # plotting augmented images with their original images
     plotting.plot_augmented_images(
-        x_rotated,
-        y_rotated,
+        x_rotated = x_rotated,
+        y_rotated = y_rotated,
         # x_random_noise,
         # y_random_noise,
-        x_flipped_h,
-        y_flipped_h,
-        x_flipped_v,
-        y_flipped_v,
+        x_flipped_h = x_flipped_h,
+        y_flipped_h = y_flipped_h,
+        x_flipped_v = x_flipped_v,
+        y_flipped_v = y_flipped_v,
         # x_translated,
         # y_translated,
-        x_zoomed,
-        y_zoomed,
+        x_zoomed = x_zoomed,
+        y_zoomed = y_zoomed,
         # x_sheared,
         # y_sheared,
-        x_brightened,
-        y_brightened,
+        x_brightened = x_brightened,
+        y_brightened = y_brightened,
         image_number=40,
     )
 

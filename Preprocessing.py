@@ -117,6 +117,7 @@ class Plotting:
             plt.subplot(3, 2, no + 1)
             callers_local_vars = inspect.currentframe().f_back.f_locals.items()
             name = str([k for k, v in callers_local_vars if v is Image][0])+': '+str(image)
+            print("checking",name)
             if name.split("_")[0] == "y":
                 plt.imshow(image[image_number], cmap=plt.cm.binary_r)  # type: ignore # type: ignore
                 plt.title(f"{image.split('_')[1]} Mask")
