@@ -19,7 +19,9 @@ ground_truth_image_files = Skin_Seg_images_Store.Files;
 for i = 1:numel(original_image_files)           % Looping through to process all image
     Image_name    = original_image_files{i};    % Get org image By Indexing our Files from datastore  
     SegImage_name = ground_truth_image_files{i}; % Get org image By Indexing our Files from datastore 
-    [original_image,normalized_image,DS_SCORE] =Segmentation_function(Image_name,SegImage_name,i);
+    [original_image,segmented_image,DS_SCORE] =Segmentation_function(Image_name,SegImage_name,i);
     DS(i) = DS_SCORE;
 end
+
+
 
